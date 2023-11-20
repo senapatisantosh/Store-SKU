@@ -1,0 +1,17 @@
+<div class="container">
+    <div storeUiDragAndDrop class="file-upload-container" (fileDropped)="onFileDropped($event)">
+        <input type="file" #file id="fileDropRef" (change)="fileBrowseHandler($event)" multiple />
+        <h1>Drag and drop CSV files here</h1>
+        <img src="../../assets/images/upload-svgrepo-com.svg" alt="upload image not found" />
+        <hr />
+        <h2>OR</h2>
+        <button mat-fab extended color="success">
+            <mat-icon>search</mat-icon>
+            Browse for CSV files
+        </button>
+    </div>
+    <button id="upload-action" mat-fab extended color="primary" (click)="uploadFiles(files)">
+        <mat-icon>upload</mat-icon>
+        Click to upload CSV files
+    </button>
+</div>
