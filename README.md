@@ -3,8 +3,6 @@
 ## Context Diagram
 ![image](./Context%20diagram.png)
 
-## Rough Solution Diagram
-![image](./Rough%20Solution%20Diagram.png)
 
 ## Tech-stack
 1. Front End - Angular HTML, SCSS, Angular Material
@@ -39,10 +37,12 @@ Preparing datasets for training models in a particular country.
 Generating financial reports and projections.
 
 ## Benefits
-Scalability: Cloud storage accommodates large-scale data while minimizing costs.
-Efficiency: Kafka streamlines data flow, enhancing the processing pipeline.
-Flexibility: Consumer groups allow targeted analysis based on specific needs.
-Optimized Queries: Elastic cluster for efficient and quick search queries.
-Structured Storage: PostgreSQL for organized and retrievable store/country-specific data.
-Machine Learning Support: Data preparation for training models in a country-specific context.
-This architecture provides a robust and scalable solution for handling diverse store data efficiently.
+1. Scalability: Cloud storage accommodates large-scale data while minimizing costs.
+2. Efficiency: Kafka streamlines data flow, enhancing the processing pipeline.
+3. Flexibility: Consumer groups allow targeted analysis based on specific needs.
+4. Optimized Queries: Elastic cluster for efficient and quick search queries.
+5. Structured Storage: PostgreSQL for organized and retrievable store/country-specific data.
+6. Machine Learning Support: Data preparation for training models in a country-specific context.
+
+## Rough Solution Diagram
+![image](./Rough%20Solution%20Diagram.png)
