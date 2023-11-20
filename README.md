@@ -44,5 +44,13 @@ Generating financial reports and projections.
 5. Structured Storage: PostgreSQL for organized and retrievable store/country-specific data.
 6. Machine Learning Support: Data preparation for training models in a country-specific context.
 
+## Assumption
+1. 3000+ Stores X 20 files/hour X 100KB (each files) X 12 Working Hours X 30 days = 2 Peta Bytes of Data Every month 
+    a, This indicates the data 10 TB data for every country (200 countries operations)
+    b. Clear data segregation specific to to in country server and databases
+2. I did not consider the authentication and authorization that is  a different prospective of thinking
+3. Logging and monitoring the infrastructured not part of the design now 
+4. They are lot of techinical components we need to create cloud subscription based on country we operate and tag the properly to understand cloud-finops
+
 ## Rough Solution Diagram
 ![image](./Rough%20Solution%20Diagram.png)
