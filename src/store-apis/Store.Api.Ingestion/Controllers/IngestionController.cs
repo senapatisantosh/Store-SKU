@@ -19,8 +19,14 @@ public class IngestionController : ControllerBase
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.InternalServerError)]
-    public async Task<IActionResult> IngestAsync(IFormFile file)
+    public async Task<IActionResult> IngestAsync()
     {
+        var formCollection = await Request.ReadFormAsync();
+        var file = formCollection.Files.First();
+        if (file.Length > 0)
+        {
+            return BadRequest("Empty file!");
+        }
         if (!file.ContentType.Equals(CsvFileContentType, StringComparison.OrdinalIgnoreCase))
         {
             return BadRequest("Only upload CSV file.");
@@ -38,12 +44,18 @@ public class IngestionController : ControllerBase
     }
 
     [HttpPost]
-    [Route("multple-ingestion")]
+    [Route("multiple-ingestion")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.InternalServerError)]
-    public async Task<IActionResult> IngestMultipleAsync(IFormFileCollection files)
+    public async Task<IActionResult> IngestMultipleAsync()
     {
+        var formCollection = await Request.ReadFormAsync();
+        var files = formCollection.Files;
+        if (files.Any(f => f.Length == 0))
+        {
+            return BadRequest("A few files are not having any records");
+        }
         if (files.Count == 0)
         {
             return BadRequest("No files selected.");

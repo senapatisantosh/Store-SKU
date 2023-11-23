@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,25 +9,34 @@ import { UploadStore } from './upload.store';
 import { UploadService } from './upload.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subject, filter, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'store-ui-upload',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatTooltipModule, MatIconModule, DragAndDropDirective],
+  imports: [
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    DragAndDropDirective
+  ],
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss'],
   providers: [UploadService, UploadStore],
 })
-export class UploadComponent {
+export class UploadComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<boolean>();
   uploadStore = inject(UploadStore);
   matSnackBar = inject(MatSnackBar);
   files: File[] = [];
-  
-  constructor() {
+
+  ngOnInit(): void {
     this.uploadStore.statusMessage$
-    .pipe(takeUntilDestroyed())
-    .subscribe(message => this.matSnackBar.open(message, "Ok"));
+      .pipe(filter(Boolean), takeUntil(this.destroy$))
+      .subscribe(message => this.matSnackBar.open(message, "Ok"));
   }
   reset() {
     this.files = [];
@@ -58,5 +67,10 @@ export class UploadComponent {
     });
 
     this.uploadStore.uploadFile(formData);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(false);
+    this.destroy$.complete()
   }
 }

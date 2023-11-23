@@ -12,16 +12,16 @@
             </button>
         </div>
     </ng-container>
-    
+
     <ng-template #showFiles>
         <p>Total Files to be uploaded {{files.length}}</p>
-      </ng-template>
+    </ng-template>
     <button id="upload-action" mat-fab extended color="primary" (click)="uploadFiles(files)" *ngIf="files.length > 0">
         <mat-icon>upload</mat-icon>
         Click to upload CSV files
     </button>
-    <button id="reset-action" mat-fab extended color="primary" (click)="reset()" *ngIf="files.length > 0">
-        <mat-icon>reset</mat-icon>
+    <button id="reset-action" mat-fab extended color="success" (click)="reset()" *ngIf="files.length > 0">
+        <mat-icon>autorenew</mat-icon>
         Reset
     </button>
 </div>

@@ -34,6 +34,7 @@ public class Program
 
         app.UseAuthorization();
 
+        app.UseCors("StoreIngestionApi");
 
         app.MapControllers();
 
