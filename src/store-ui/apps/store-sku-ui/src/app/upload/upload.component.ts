@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DragAndDropDirective } from './drag-and-drop.directive';
-import { UploadStore } from './upload.store';
+import { UploadStatus, UploadStore } from './upload.store';
 import { UploadService } from './upload.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -37,6 +37,9 @@ export class UploadComponent implements OnInit, OnDestroy {
     this.uploadStore.statusMessage$
       .pipe(filter(Boolean), takeUntil(this.destroy$))
       .subscribe(message => this.matSnackBar.open(message, "Ok"));
+    this.uploadStore.status$
+      .pipe(filter(x => x === UploadStatus.Completed), takeUntil(this.destroy$))
+      .subscribe(_ => this.files = []);
   }
   reset() {
     this.files = [];

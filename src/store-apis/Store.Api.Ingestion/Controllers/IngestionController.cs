@@ -34,7 +34,7 @@ public class IngestionController : ControllerBase
         try
         {
             await _iIngestionManager.HandleIngestionAsync(file);
-            return Ok($"Your file {file.FileName} has been successfully uploaded.");
+            return Ok();
 
         }
         catch (Exception ex)
@@ -68,7 +68,7 @@ public class IngestionController : ControllerBase
         try
         {
             await _iIngestionManager.HandleMultipleIngestionAsync(files);
-            return Ok($"Your files have been successfully uploaded.");
+            return Ok();
         }
 
         catch (Exception ex)
